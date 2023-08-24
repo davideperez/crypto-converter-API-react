@@ -3,6 +3,18 @@ import styled from '@emotion/styled'
 
 const Label = styled.label`
   color: #FFF;
+  display: block;
+  font-family: 'Lato' , sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 15px 0;
+`
+const Select = styled.select`
+  width: 100%;
+  font-size: 18px;
+  padding: 14px;
+  border-radius: 10px;
+  
 `
 
 const useSelectMonedas = (label, options) => {
@@ -10,7 +22,7 @@ const useSelectMonedas = (label, options) => {
   const SelectMonedas = ()=> (
     <>
       <Label htmlFor="">{label}</Label>
-      <select name="" id="">
+      <Select name="" id="">
         <option value="">Select</option>
         {options.map(option => (
             <option 
@@ -18,7 +30,7 @@ const useSelectMonedas = (label, options) => {
               value={option.id}
             >{option.name}</option>
         ))}
-      </select>
+      </Select>
     </>
   )
 
