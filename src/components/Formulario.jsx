@@ -22,13 +22,16 @@ const InputSubmit = styled.input`
 
 const Formulario = () => {
     
-    const [ SelectCurrency ] = useSelectMonedas('Pick your currency', currencies)
+    const [ currency, SelectCurrency ] = useSelectMonedas('Pick your currency', currencies)
 
     return (
         <form 
             action=""
         >
             <SelectCurrency />
+            
+            {currency}
+            
             <InputSubmit 
                 type="submit" 
                 value='Convert' 
