@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
+import Formulario from './components/Formulario'
 import ImagenCripto from './img/imagen-criptos.png'
 
 const Contenedor = styled.div`
   max-width: 900px;
   margin: 0 auto;
   width: 90%;
-  @media: (min-width: 992px) {
+  @media (min-width: 992px) {
     display: grid;
-    grid-template-columns: repeat(2, 1fr)
+    grid-template-columns: repeat(2, 1fr);
     column-gap: 2rem;
   }
 `
@@ -49,6 +50,7 @@ function App() {
         />
         <div>
           <Heading>Quick Crypto Converter</Heading>
+          <Formulario />
         </div>
       </Contenedor>
     
