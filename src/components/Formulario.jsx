@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
+import Error from './Error'
 import useSelectMonedas from '../hooks/useSelectMonedas'
 import { currencies } from '../data/currencies'
-import { useEffect } from 'react'
 
 const InputSubmit = styled.input`
     background-color: #9497ff;
@@ -22,33 +23,56 @@ const InputSubmit = styled.input`
 `
 
 const Formulario = () => {
+    const [ cryptos, setCryptos  ] = useState([])
+    const [ error, setError ] = useState(false)
     
     const [ currency, SelectCurrency ] = useSelectMonedas('Pick your currency', currencies)
+    const [ cryptoCurrency, SelectCryptoCurrency ] = useSelectMonedas('Pick your crypto-currency', cryptos)
 
     useEffect(() => {
         const consultarAPI = async () => {
             const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD'
             const answer = await fetch(url)
             const result = await answer.json()
-            console.log(result.data)
+
+            const arrayCryptos = result.Data.map(crypto => {
+
+                const object = {
+                    id: crypto.CoinInfo.Name,
+                    name: crypto.CoinInfo.FullName,
+                }
+                return object
+            })
+            setCryptos(arrayCryptos)
         }
         consultarAPI()
     }, [])
     
+    const handleSubmit = e => {
+        e.preventDefault()
+
+        if ([currency, cryptoCurrency].includes('')) {
+            setError(true)
+            return
+        }
+        setError(false)
+    }
 
     return (
-        <form 
-            action=""
-        >
-            <SelectCurrency />
-            
-            {currency}
-            
-            <InputSubmit 
-                type="submit" 
-                value='Convert' 
-            />
-        </form>
+        <>
+            {error && <Error> All fields are mandatory</Error> }
+            <form
+                onSubmit={handleSubmit}
+                >
+                <SelectCurrency />
+                <SelectCryptoCurrency />
+                
+                <InputSubmit 
+                    type="submit" 
+                    value='Convert' 
+                    />
+            </form>
+        </>
     )
 }
 
