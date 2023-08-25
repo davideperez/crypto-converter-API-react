@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import Formulario from './components/Formulario'
 import ImagenCripto from './img/imagen-criptos.png'
+import { currencies } from './data/currencies'
 
 const Contenedor = styled.div`
   max-width: 900px;
@@ -41,6 +42,14 @@ const Heading = styled.h1`
 `
 
 function App() {
+
+  const [currencies, setCurrencies ] = useState()
+
+  useEffect(() => {
+    console.log(currencies)
+  }, [currencies])
+  
+
   return (
     <>
       <Contenedor>
@@ -50,7 +59,9 @@ function App() {
         />
         <div>
           <Heading>Quick Crypto Converter</Heading>
-          <Formulario />
+          <Formulario
+            setCurrencies={setCurrencies}
+          />
         </div>
       </Contenedor>
     
