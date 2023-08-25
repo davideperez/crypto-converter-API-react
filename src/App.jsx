@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import Formulario from './components/Formulario'
 import ImagenCripto from './img/imagen-criptos.png'
-import { currencies } from './data/currencies'
+//import { currencies } from './data/currencies'
 
 const Contenedor = styled.div`
   max-width: 900px;
@@ -43,10 +43,30 @@ const Heading = styled.h1`
 
 function App() {
 
-  const [currencies, setCurrencies ] = useState()
+  const [currencies, setCurrencies ] = useState({})
+  const [result, setResult ] = useState({})
+
 
   useEffect(() => {
-    console.log(currencies)
+    // Validates the object currencies is not empty.
+    if(Object.keys(currencies).length > 0) {
+      
+      //defines function to convert cryptos.
+      const convertCrypto = async () => {
+        const { currency, cryptoCurrency } = currencies
+
+        const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptoCurrency}&tsyms=${currency}`
+
+        const answer = await fetch(url)
+        const result = await answer.json()
+
+        setResult(result.DISPLAY[cryptoCurrency][currency])
+      }
+      
+      //calls the function to convert cryptos
+      convertCrypto()
+    }
+    
   }, [currencies])
   
 
