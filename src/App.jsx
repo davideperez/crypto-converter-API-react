@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import Formulario from './components/Formulario'
+import Result from './components/Result'
 import ImagenCripto from './img/imagen-criptos.png'
 //import { currencies } from './data/currencies'
 
@@ -81,7 +82,10 @@ function App() {
           <Heading>Quick Crypto Converter</Heading>
           <Formulario
             setCurrencies={setCurrencies}
-          />
+            />
+          
+          { result.PRICE && <Result result={result} /> }
+
         </div>
       </Contenedor>
     
